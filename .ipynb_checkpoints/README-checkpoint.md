@@ -1,119 +1,108 @@
-<p align=center><img src=https://d31uz8lwfmyn8g.cloudfront.net/Assets/logo-henry-white-lg.png><p>
+# PI01-Data-Engineering
 
-# <h1 align=center> **PROYECTO INDIVIDUAL Nº1** </h1>
+Proyecto para limpiar y transformar datos y publicarlos en una API publica.
 
-# <h1 align=center>**`Data Engineering`**</h1>
+## Que nos dan:
+ - Cuatro ficheros csv 
+   amazon_prime_titles.csv
+   disney_plus_titles-score.csv
+   hulu_titles-score (2).csv
+   netflix_titles-score.csv
+   
+## Con que voy a trabajar para lograr el objetivo.
+  ### Herramientas
+  - jupyter lab
+  - Visual Studio Code
+  - mito
+  - docker
+  ### Plataforma de programacion
+  - Python
+  - Pandas
+  - Flask
+  - Los datos los deje en csv
+   
+# Limpieza de datos
+ - Generar campo **`id`**: Cada id se compondrá de la primera letra del nombre de la plataforma, seguido del show_id ya presente en los datasets (ejemplo para    títulos de Amazon = **`as123`**)
 
-<p align="center">
-<img src="https://files.realpython.com/media/What-is-Data-Engineering_Watermarked.607e761a3c0e.jpg"  height=300>
-</p>
+ - Los valores nulos del campo rating deberán reemplazarse por el string “**`G`**” (corresponde al maturity rating: “general for all audiences”
 
-¡Bienvenidos al primer proyecto individual de la etapa de labs! En esta ocasión, deberán hacer un trabajo situándose en el rol de un ***Data Engineer***.  
+ - De haber fechas, deberán tener el formato **`AAAA-mm-dd`**
 
-<hr>  
+ - Los campos de texto deberán estar en **minúsculas**, sin excepciones
 
-## **Descripción del problema (Contexto y rol a desarrollar)**
+ - El campo ***duration*** debe convertirse en dos campos: **`duration_int`** y **`duration_type`**. El primero será un integer y el segundo un string        
+   indicando la unidad de medición de duración: min (minutos) o season (temporadas)
+   
+   
+   ## Fichero Ingenieria_Datos.jpyn  
+   Aca voy a realizar lo que me piden y como resultado salvare toda la informacion en un fichero unico (data_origen.csv) que va a contener la informacion de los
+   cuatro ficheros originales, gracias a que los cuatro comparten la misma estructura. El fichero lo voy a salvar en la carpeta API Server que es donde
+   voy a desarrollar la api que me piden.
+   
+ 
+ # Desarrollo de la API
+   El codigo esta ubicado en la carpeta API Server y tiene que responder a estas preguntas:
+   - Cantidad de veces que aparece una keyword en el título de peliculas/series, por plataforma 
+     ej de uso: 
+       http://ornaldo.pythonanywhere/keyword/netflix/love  (ocurrencia de la palabra 'love' en la plataforma 'netflix')
+       http://ornaldo.pythonanywhere/keyword/love          (ocurrencia de la palabra 'love' en todas las plataformas)
+     
 
-## Contexto
+   - Cantidad de películas por plataforma con un puntaje mayor a XX en determinado año
+     ej de uso:
+       http://ornaldo.pythonanywhere/score/90               (cantidad de peliculas por plataforma con puntaje superior a 90)
+       http://ornaldo.pythonanywhere/score/90/amazon        (cantidad de peliculas de la plataforma amazon con puntaje superior a 90)
+       http://ornaldo.pythonanywhere/score/90/2021          (cantidad de peliculas por plataforma con puntaje superior a 90 del año 2021)
+       http://ornaldo.pythonanywhere/score/90/2020/netflix  (cantidad de peliculas de la plataforma netflix con puntaje superior a 90 del año 2020)
 
-`Application Programming Interface`  es una interfaz que permite que dos aplicaciones se comuniquen entre sí, independientemente de la infraestructura subyacente. Son herramientas muy versátiles que permiten por ejemplo, crear pipelines facilitando mover y brindar acceso simple a los datos que se quieran disponibilizar a través de los diferentes endpoints, o puntos de salida de la API.
+   - La segunda película con mayor score para una plataforma determinada, según el orden alfabético de los títulos.
+     ej de uso:
+       http://ornaldo.pythonanywhere/second_score/hulu  (segunda pelicula con mayor score segun orden alfabetico del titulo de la plataforma hulu)
 
-Hoy en día contamos con **FastAPI**, un web framework moderno y de alto rendimiento para construir APIs con Python.
-<p align=center>
-<img src = 'https://i.ibb.co/9t3dD7D/blog-zenvia-imagens-3.png' height=250><p>
+   - Película que más duró según año, plataforma y tipo de duración
+     ej de uso:
+       http://ornaldo.pythonanywhere/mayor_duracion/min  (pelicula que mas duro en cada una de las plataformas en cada año)
+       http://ornaldo.pythonanywhere/mayor_duracion/amazon/season  (serie que mas duro en amazon en cada año)
+       http://ornaldo.pythonanywhere/mayor_duracion/hulu/min/2020  (pelicula que mas duro en hulo en el año 2020)
 
-## Rol a desarrollar
-
-Como parte del equipo de data de una empresa, el área de análisis de datos le solicita al área de Data Engineering (usted) ciertos requerimientos para el óptimo desarrollo de sus actividades. Usted deberá elaborar las *transformaciones* requeridas y disponibilizar los datos mediante la *elaboración y ejecución de una API*.
-
-
-
-## **Propuesta de trabajo (requerimientos de aprobación)**
-
-**`Transformaciones`**:  El analista de datos requiere estas, ***y solo estas***, transformaciones para sus datos:
-
-
-+ Generar campo **`id`**: Cada id se compondrá de la primera letra del nombre de la plataforma, seguido del show_id ya presente en los datasets (ejemplo para títulos de Amazon = **`as123`**)
-
-+ Los valores nulos del campo rating deberán reemplazarse por el string “**`G`**” (corresponde al maturity rating: “general for all audiences”
-
-+ De haber fechas, deberán tener el formato **`AAAA-mm-dd`**
-
-+ Los campos de texto deberán estar en **minúsculas**, sin excepciones
-
-+ El campo ***duration*** debe convertirse en dos campos: **`duration_int`** y **`duration_type`**. El primero será un integer y el segundo un string indicando la unidad de medición de duración: min (minutos) o season (temporadas)
-
-<br/>
-
-**`Desarrollo API`**:  Para disponibilizar los datos la empresa usa el framework ***FastAPI***. El analista de datos requiere consultar:
-
-+ Cantidad de veces que aparece una keyword en el título de peliculas/series, por plataforma
-
-+ Cantidad de películas por plataforma con un puntaje mayor a XX en determinado año
-
-+ La segunda película con mayor score para una plataforma determinada, según el orden alfabético de los títulos.
-
-+ Película que más duró según año, plataforma y tipo de duración
-
-+ Cantidad de series y películas por rating
-<br/>
-
-
-**`Deployment`**: La empresa suele usar [Deta](https://www.deta.sh/?ref=fastapi) (no necesita dockerizacion) para realizar el deploy de sus aplicaciones. Sin embargo, también puede usar [Railway](https://railway.app/) y [Render](https://render.com/docs/free#free-web-services) (necesitan dockerizacion).
-<br/>
-
-<br/>
-
-**`Video`**: El Tech Lead que le delegó esta tarea quiere darle un feedback sobre el trabajo realizado. Para esto, le pide que sintetice en un video de ***5 minutos*** su trabajo resaltando cómo ayuda el mismo a los analistas de datos.
-
-<sub> **Spoiler: Para lograr esto DEBE mostrarle al TL las consultas requeridas en funcionamiento desde la API**. <sub/>
-
-<br/>
-
-## **Criterios de evaluación**
-
-**`Código`**: Prolijidad de código, uso de clases y/o funciones, en caso de ser necesario, código comentado. 
-
-**`Repositorio`**: Nombres de archivo adecuados, uso de carpetas para ordenar los archivos, README.md presentando el proyecto y el trabajo realizado
-
-**`Cumplimiento`** de los requerimientos de aprobación indicados en el apartado `Propuesta de trabajo`
-
-NOTA: Recuerde entregar el link de acceso al video. Puede alojarse en YouTube, Drive o cualquier plataforma de almacenamiento. **Verificar que sea de acceso público**.
-
-<br/>
-
-## **Fuente de datos**
-
-+ Podrán encontrar los archivos con datos en la carpeta Datasets, en este mismo repositorio.<sup>*</sup>
-<br/>
-
-## **Material de apoyo**
-
-Imagen Docker con Uvicorn/Guinicorn para aplicaciones web de alta performance:
-
-+ https://hub.docker.com/r/tiangolo/uvicorn-gunicorn-fastapi/ 
-
-+ https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker
-
-FAST API Documentation:
-
-+ https://fastapi.tiangolo.com/tutorial/
-
-"Prolijidad" del codigo:
-
-+ https://pandas.pydata.org/docs/development/contributing_docstring.html
-
-<br/>
-
-## **Deadlines importantes**
-
-+ Apertura de formularios de entrega de proyectos: **Miercoles 18, 15:00hs gmt -3**
-
-+ Cierre de formularios de entrega de proyectos: **Viernes 20, 12:00hs gmt-3**
-  
-+ Demo por parte del estudiante: **Viernes 20, 16:00hs gmt-3** 
-
-(Se escogera entre l@s estudiantes aquel que represente de **forma global** todos los criterios de evaluacion esperados, para que sirva de inspiracion a sus compañer@s)
-
-## `Disclaimer`
-De parte del equipo de Henry se aclara y remarca que el fin de los proyectos propuestos es exclusivamente pedagógico, con el objetivo de realizar simular un entorno laboral, en el cual se trabajan diversas temáticas ajustadas a la realidad. No reflejan necesariamente la filosofía y valores de la organización. Además, Henry no alienta ni tampoco recomienda a los alumnos y/o cualquier persona leyendo los repositorios (y entregas de proyectos) que tomen acciones con base a los datos que pudieran o no haber recabado. Toda la información expuesta y resultados obtenidos en los proyectos nunca deben ser tomados en cuenta para la toma real de decisiones (especialmente en la temática de finanzas, salud, política, etc.).
+   - Cantidad de series y películas por rating
+     ej de uso:
+       http://ornaldo.pythonanywhere/rating     (cantidad de series y peliculas para cada rating)
+       http://ornaldo.pythonanywhere/rating/18+ (cantidad de series y peliculas para cada el rating = 18+)
+   
+   ## Fichero Ingenieria_Datos_II.jpyn
+   Aqui parto de data_origen.csv y primero sigo haciendo algo de limpieza, despues de salvar los cambios a data.csv para desarrollar la API.
+   Aca adentro usando 'mito' hago pruebas al DataFrame que me ayudan en la confección de la API.
+   Es decir en la confección de la API uso al unísono este fichero mientras programo en app.py, acá hago pruebas visuales a los datos usando 'mito' este
+   me genera codigo python
+   
+   
+   En la carpeta API Server esta el fichero app.py 
+ 
+ 
+ # Uso de docker para publicar la API
+ Dento de la carpeta API Server tengo creado el fichero dockerfile donde incluyo lo necesario para generar la imagen con lo necesario para ejecutar la API.
+ 
+ FROM python:3.10
+ EXPOSE 5000
+ WORKDIR /app
+ RUN pip install flask
+ RUN pip install pandas
+ RUN pip install numpy 
+ COPY . .
+ CMD ["flask","run","--host","0.0.0.0"]
+ 
+ 
+ # Publicacion de la aplicacion
+ Encontre muy poca informacion de como publicar el docker, las variantes que encontre eran de pago. El docker lo probé localmente y trabaja bien. 
+ La solución encontrada fue publicar la API en www.pythonanywhere.com, abrí una cuenta y creé una Web app con el subdominio
+ www.ornaldo.pythonanywhere.com en esa dirección se puede probar la API. Para lograrlo subí el contenido de app.py y lo puse dentro de flask_app.py mas 
+ el fichero data.csv, 
+ Solo fué necesario unas pequeñas transformaciones del código para poder ejecutarlo. Así que el código fuente que esta en la carpeta API Server
+ en el repositorio responde al código que yo pruebo en mi máquina, después lo subo y lo transformo:
+   - localhost:5001 por ornaldo.pythonanywhere 
+   - la carga de 'data.csv' que en mi caso es local en la web tengo que usar '/home/ornaldo/mysite/data.csv')
+ que es la carpeta donde está alojado el fichero en el servidor.
+ 
+ # Video explicativo de todo el trabajo realizado
+ https://youtu.be/11p2PoSEsFE
