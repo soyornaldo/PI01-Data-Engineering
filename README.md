@@ -44,31 +44,31 @@ Proyecto para limpiar y transformar datos y publicarlos en una API publica.
    El codigo esta ubicado en la carpeta API Server y tiene que responder a estas preguntas:
    - Cantidad de veces que aparece una keyword en el título de peliculas/series, por plataforma 
      ej de uso: 
-       http://localhost:5001/keyword/netflix/love  (ocurrencia de la palabra 'love' en la plataforma 'netflix')
-       http://localhost:5001/keyword/love          (ocurrencia de la palabra 'love' en todas las plataformas)
+       http://ornaldo.pythonanywhere/keyword/netflix/love  (ocurrencia de la palabra 'love' en la plataforma 'netflix')
+       http://ornaldo.pythonanywhere/keyword/love          (ocurrencia de la palabra 'love' en todas las plataformas)
      
 
    - Cantidad de películas por plataforma con un puntaje mayor a XX en determinado año
      ej de uso:
-       http://localhost:5001/score/90               (cantidad de peliculas por plataforma con puntaje superior a 90)
-       http://localhost:5001/score/90/amazon        (cantidad de peliculas de la plataforma amazon con puntaje superior a 90)
-       http://localhost:5001/score/90/2021          (cantidad de peliculas por plataforma con puntaje superior a 90 del año 2021)
-       http://localhost:5001/score/90/2020/netflix  (cantidad de peliculas de la plataforma netflix con puntaje superior a 90 del año 2020)
+       http://ornaldo.pythonanywhere/score/90               (cantidad de peliculas por plataforma con puntaje superior a 90)
+       http://ornaldo.pythonanywhere/score/90/amazon        (cantidad de peliculas de la plataforma amazon con puntaje superior a 90)
+       http://ornaldo.pythonanywhere/score/90/2021          (cantidad de peliculas por plataforma con puntaje superior a 90 del año 2021)
+       http://ornaldo.pythonanywhere/score/90/2020/netflix  (cantidad de peliculas de la plataforma netflix con puntaje superior a 90 del año 2020)
 
    - La segunda película con mayor score para una plataforma determinada, según el orden alfabético de los títulos.
      ej de uso:
-       http://localhost:5001/second_score/hulu  (segunda pelicula con mayor score segun orden alfabetico del titulo de la plataforma hulu)
+       http://ornaldo.pythonanywhere/second_score/hulu  (segunda pelicula con mayor score segun orden alfabetico del titulo de la plataforma hulu)
 
    - Película que más duró según año, plataforma y tipo de duración
      ej de uso:
-       http://localhost:5001/mayor_duracion/min  (pelicula que mas duro en cada una de las plataformas en cada año)
-       http://localhost:5001/mayor_duracion/amazon/season  (serie que mas duro en amazon en cada año)
-       http://localhost:5001/mayor_duracion/hulu/min/2020  (pelicula que mas duro en hulo en el año 2020)
+       http://ornaldo.pythonanywhere/mayor_duracion/min  (pelicula que mas duro en cada una de las plataformas en cada año)
+       http://ornaldo.pythonanywhere/mayor_duracion/amazon/season  (serie que mas duro en amazon en cada año)
+       http://ornaldo.pythonanywhere/mayor_duracion/hulu/min/2020  (pelicula que mas duro en hulo en el año 2020)
 
    - Cantidad de series y películas por rating
      ej de uso:
-       http://localhost:5001/rating     (cantidad de series y peliculas para cada rating)
-       http://localhost:5001/rating/18+ (cantidad de series y peliculas para cada el rating = 18+)
+       http://ornaldo.pythonanywhere/rating     (cantidad de series y peliculas para cada rating)
+       http://ornaldo.pythonanywhere/rating/18+ (cantidad de series y peliculas para cada el rating = 18+)
    
    ## Fichero Ingenieria_Datos_II.jpyn
    Aqui parto de data_origen.csv y primero sigo haciendo algo de limpieza, despues de salvar los cambios a data.csv para desarrollar la API.
@@ -105,3 +105,4 @@ Proyecto para limpiar y transformar datos y publicarlos en una API publica.
  que es la carpeta donde está alojado el fichero en el servidor.
  
  # Video explicativo de todo el trabajo realizado
+ https://youtu.be/xG6_kAAR79Y
